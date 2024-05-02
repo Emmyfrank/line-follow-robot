@@ -33,15 +33,15 @@ void loop() {
 
   // Determine robot movement based on sensor readings
   if (leftSensorValue < sensorThreshold && rightSensorValue < sensorThreshold) {
-    // Both sensors detect the line -> move forward
-    digitalWrite(motor1Pin1, HIGH);
-    digitalWrite(motor1Pin2, LOW);
-    digitalWrite(motor2Pin1, HIGH);
-    digitalWrite(motor2Pin2, LOW);
-    analogWrite(enablePin1, 150);
-    analogWrite(enablePin2, 150);
+    // Both sensors detect the line -> move backward
+    digitalWrite(motor1Pin1, LOW); // Reverse motor 1
+    digitalWrite(motor1Pin2, HIGH); // Reverse motor 1
+    digitalWrite(motor2Pin1, LOW); // Reverse motor 2
+    digitalWrite(motor2Pin2, HIGH); // Reverse motor 2
+    analogWrite(enablePin1, 100); // Reduce speed for motor 1
+    analogWrite(enablePin2, 100); // Reduce speed for motor 2
   } else if (leftSensorValue < sensorThreshold && rightSensorValue >= sensorThreshold) {
-    // Left sensor detects the line -> turn left
+    // Left sensor detects the line -> turn left (reverse right motor)
     digitalWrite(motor1Pin1, LOW);
     digitalWrite(motor1Pin2, HIGH);
     digitalWrite(motor2Pin1, HIGH);
@@ -49,7 +49,7 @@ void loop() {
     analogWrite(enablePin1, 100);
     analogWrite(enablePin2, 100);
   } else if (leftSensorValue >= sensorThreshold && rightSensorValue < sensorThreshold) {
-    // Right sensor detects the line -> turn right
+    // Right sensor detects the line -> turn right (reverse left motor)
     digitalWrite(motor1Pin1, HIGH);
     digitalWrite(motor1Pin2, LOW);
     digitalWrite(motor2Pin1, LOW);
